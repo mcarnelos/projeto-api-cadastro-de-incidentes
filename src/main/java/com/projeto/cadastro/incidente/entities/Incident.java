@@ -3,9 +3,19 @@ package com.projeto.cadastro.incidente.entities;
 import java.io.Serializable;
 import java.time.Instant;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tb_incident")
 public class Incident implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idIncident;
 	private String name;
 	private String description;
