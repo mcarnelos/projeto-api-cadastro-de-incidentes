@@ -2,6 +2,7 @@ package com.projeto.cadastro.incidente.services;
 
 
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,22 +31,20 @@ public class IncidentService {
 	}
 	
 	//metodo que retorna os incidentes por id
+	@Transactional(readOnly = true)
 	public IncidentDTO findById(Long id) {
 		Optional<Incident> obj = repository.findById(id);
 		Incident entity = obj.orElseThrow(() -> new EntityNotFoundException("Entity not found"));
-		//Incident entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
 		return new IncidentDTO(entity);
 	}
 
 	//insere um incidente
+	@Transactional
 	public IncidentDTO insert(IncidentDTO dto) {
-		Incident entity = new Incident();
-		
-		//entity.setMoment(Instant.now());
-		
+		Incident entity = new Incident();	
 		entity.setName(dto.getName());
 		entity.setDescription(dto.getDescription());
-		entity.setCreatedAt(dto.getCreatedAt());
+		entity.setCreatedAt(Instant.now());
 		entity.setUpdatedAt(dto.getUpdatedAt());
 		entity.setClosedAt(dto.getClosedAt());
 		
@@ -54,7 +53,26 @@ public class IncidentService {
 		return new IncidentDTO(entity);
 	}
 
-
-
+	//altera os dados de um incidente
+	@Transactional
+	public IncidentDTO update(Long id, IncidentDTO dto) {
+		Incident entity = repository.getById(id);
+		entity.setName(dto.getName());
+		entity.setDescription(dto.getDescription());
+		entity.setCreatedAt(dto.getCreatedAt());
+		entity.setUpdatedAt(Instant.now());
+		entity.setClosedAt(Instant.now());
+		
+		//salva no bd
+		entity = repository.save(entity);
+		return new IncidentDTO(entity);
+		}
+		
+	
+	//apaga um incidente
+	@Transactional
+	public void delete(Long id) {
+		repository.deleteById(id);
+		}
 	
 }
