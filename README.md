@@ -45,7 +45,7 @@ git clone https://github.com/mcarnelos/projeto-api-cadastro-de-incidentes
 
 # Caso queira alterar o seed do banco de dados altere os dados no arquivo resources/import.sql
 
-# O servidor inciará na porta:8080 abra o Postman e execute os verbos HTTP na url <http://localhost:8080/clients>
+# O servidor inciará na porta:8080 abra o Postman e execute os verbos HTTP na url <http://localhost:8080/incidents>
 
 # Faça os testes no banco de dados H2 na url <http://localhost:8080/h2-console>
 ```
